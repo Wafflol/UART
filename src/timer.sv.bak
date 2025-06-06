@@ -3,7 +3,7 @@ module timer #(parameter int WAIT_TIME = 434) (
     output reg done
 );
 
-parameter int WIDTH = $clog2(WAIT_TIME);
+int WIDTH = $clog2(WAIT_TIME);
 reg [WIDTH-1 : 0] counter;
 
 always_ff @(posedge clk) begin
