@@ -13,11 +13,7 @@ end
 
 initial begin
     rst = 1'b1; #6;
-    rst = 1'b0;
-end
-
-initial begin
-    #41;
+    rst = 1'b0; #35;
     if (DUT.done !== 1'b1)
     $display("ERROR: TIMER ISNT DONE");
 end

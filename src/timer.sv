@@ -11,7 +11,7 @@ always_ff @(posedge clk) begin
         counter <= '0;
         done <= 1'b0;
     end
-    else if (counter < WAIT_TIME)
+    else if (counter < WAIT_TIME - 1)
         counter <= counter + 1'b1;
     else begin
         counter <= '0;
