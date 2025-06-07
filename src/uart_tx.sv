@@ -29,7 +29,7 @@ parameter [3:0] IDLE  = 4'b0001,
                 STOP  = 4'b1000;
 
 assign next_state_reset = rst ? IDLE : next_state;
-assign send_data = '{1'b1, ~(data), 1'b0};
+assign send_data = {1'b1, ~(data), 1'b0};
 
 always_ff @(posedge clk) begin : registers
     state <= next_state_reset;
