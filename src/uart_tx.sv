@@ -20,7 +20,6 @@ module uart_tx
                     STOP  = 4'b1000;
 
     assign next_state_reset = rst ? IDLE : next_state;
-    assign send_data = {1'b1, ~(data_register), 1'b0};
 
     always_ff @(posedge clk) begin : registers
         state <= next_state_reset;
