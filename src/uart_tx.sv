@@ -14,7 +14,7 @@ module uart_tx
 //
 // packet_t send_data;
 //
-logic [9:0] send_data;
+wire [9:0] send_data;
 
 parameter int BAUD_WIDTH = CLOCK_SPEED / BAUD_RATE; // 434
 
@@ -29,10 +29,7 @@ parameter [3:0] IDLE  = 4'b0001,
                 STOP  = 4'b1000;
 
 assign next_state_reset = rst ? IDLE : next_state;
-
-always_comb begin
-    send_data = '{1'b1, ~(data), 1'b0};
-end
+assign send_data = '{1'b1, ~(data), 1'b0};
 
 always_ff @(posedge clk) begin : registers
     state <= next_state_reset;
