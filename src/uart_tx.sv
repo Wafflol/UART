@@ -57,7 +57,7 @@ always_comb begin : state_machine_cl
             else begin
                 counter_next = 1'b0;
                 next_state = TX;
-                shift_reg_next =  shift_reg + 1;
+                shift_reg_next =  shift_reg + 1'b1;
             end
 
         end
@@ -70,7 +70,7 @@ always_comb begin : state_machine_cl
             end
             else begin
                 counter_next = 1'b0;
-                shift_reg_next = shift_reg + 1;
+                shift_reg_next = shift_reg + 1'b1;
                 if (shift_reg == 8)
                     next_state = STOP;
                 else
