@@ -1,0 +1,14 @@
+C:/Users/tommy/Documents/UART/UART/src/uart_tx.sv {1 {vlog -work work -sv -stats=none C:/Users/tommy/Documents/UART/UART/src/uart_tx.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module uart_tx
+
+Top level modules:
+	uart_tx
+
+} {} {}} C:/Users/tommy/Documents/UART/UART/src/uart_tx_tb.sv {0 {vlog -work work -sv -stats=none C:/Users/tommy/Documents/UART/UART/src/uart_tx_tb.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module uart_tx_tb
+** Error: C:/Users/tommy/Documents/UART/UART/src/uart_tx_tb.sv(26): (vlog-2110) Illegal reference to net "err".
+** Error: C:/Users/tommy/Documents/UART/UART/src/uart_tx_tb.sv(30): (vlog-2110) Illegal reference to net "err".
+
+} {4.0 6.0} {}}
