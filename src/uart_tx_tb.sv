@@ -4,16 +4,10 @@ logic clk, rst, send, err;
 logic [7:0] data;
 wire tx, tx_done;
 
-enum {IDLE_BIT  = 0,
-      START_BIT = 1,
-      TX_BIT    = 2,
-      STOP_BIT  = 3} state_bit;
-
-typedef enum logic [3:0] {IDLE  = 4'b0001<<IDLE_BIT,
-                  START = 4'b0001<<START_BIT,
-                  TX    = 4'b0001<<TX_BIT,
-                  STOP  = 4'b0001<<STOP_BIT
-                  } states_t;
+parameter int IDLE  = 4'b0001;
+parameter int START = 4'b0010;
+parameter int TX    = 4'b0100;
+parameter int STOP  = 4'b1000;
 
 uart_tx #(.BAUD_RATE(25_000_000)) DUT(.*);
 
@@ -34,8 +28,8 @@ endtask
 
 initial begin
     forever begin
-        clk = 1'b1; #5;
         clk = 1'b0; #5;
+        clk = 1'b1; #5;
     end
 end
 
