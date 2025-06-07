@@ -1,16 +1,10 @@
-module uart_tx (
+module uart_tx 
+    #(parameter int BAUD_RATE = 115_200,
+        parameter int CLOCK_SPEED = 50_000_000)(
     input clk, rst, send,
     input [7:0] data,
     output reg tx, tx_done
 );
-
-logic timer_done, timer_on;
-logic [8:0] counter, counter_next;
-logic [3:0] shift_reg, shift_reg_next;
-
-parameter int BAUD_RATE = 115_200; //bit/sec
-parameter int CLOCK_SPEED = 50_000_000;
-parameter int BAUD_WIDTH = int'(CLOCK_SPEED / BAUD_RATE); // ~434
 
 typedef struct packed {
     logic stop_bit;
@@ -20,19 +14,23 @@ typedef struct packed {
 
 packet_t send_data;
 
-enum {IDLE_BIT  = 0,
-      START_BIT = 1,
-      TX_BIT    = 2,
-      STOP_BIT  = 3} state_bit;
+parameter int BAUD_WIDTH = CLOCK_SPEED / BAUD_RATE; // 434
 
-enum logic [3:0] {IDLE  = 4'b0001<<IDLE_BIT,
-                  START = 4'b0001<<START_BIT,
-                  TX    = 4'b0001<<TX_BIT,
-                  STOP  = 4'b0001<<STOP_BIT
-                  } state, next_state, next_state_reset;
+logic timer_done, timer_on;
+logic [8:0] counter, counter_next;
+logic [3:0] shift_reg, shift_reg_next, state, next_state;
+wire  [3:0] next_state_reset;
+
+parameter [3:0] IDLE  = 4'b0001,
+                START = 4'b0010,
+                TX    = 4'b0100,
+                STOP  = 4'b1000;
 
 assign next_state_reset = rst ? IDLE : next_state;
-assign send_data = '{1'b1, ~(data), 1'b0};
+
+always_comb begin
+    send_data = '{1'b1, ~(data), 1'b0};
+end
 
 always_ff @(posedge clk) begin : registers
     state <= next_state_reset;
@@ -87,6 +85,7 @@ always_comb begin : state_machine_cl
                 shift_reg_next = '0;
             end
         end
+        default: {next_state, counter_next, shift_reg_next, tx, tx_done} = 'x;
     endcase
 end
 endmodule
