@@ -1,4 +1,4 @@
-module uart_tx 
+module uart_tx
     #(parameter int BAUD_RATE = 115_200,
         parameter int CLOCK_SPEED = 50_000_000)(
     input clk, rst, send,
@@ -19,6 +19,7 @@ wire [9:0] send_data;
 parameter int BAUD_WIDTH = CLOCK_SPEED / BAUD_RATE; // 434
 
 logic timer_done, timer_on;
+logic [7:0] data_register;
 logic [8:0] counter, counter_next;
 logic [3:0] shift_reg, shift_reg_next, state, next_state;
 wire  [3:0] next_state_reset;
@@ -29,12 +30,17 @@ parameter [3:0] IDLE  = 4'b0001,
                 STOP  = 4'b1000;
 
 assign next_state_reset = rst ? IDLE : next_state;
-assign send_data = {1'b1, ~(data), 1'b0};
+assign send_data = {1'b1, ~(data_register), 1'b0};
 
 always_ff @(posedge clk) begin : registers
     state <= next_state_reset;
     counter <= counter_next;
     shift_reg <= shift_reg_next;
+end
+
+always_ff @(posedge clk) begin
+    if (send & state === IDLE)
+        data_register <= data;
 end
 
 always_comb begin : state_machine_cl
