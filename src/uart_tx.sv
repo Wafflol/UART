@@ -6,13 +6,15 @@ module uart_tx
     output reg tx, tx_done
 );
 
-typedef struct packed {
-    logic stop_bit;
-    logic [7:0] payload;
-    logic start_bit;
-} packet_t;
-
-packet_t send_data;
+// typedef struct packed {
+//     logic stop_bit;
+//     logic [7:0] payload;
+//     logic start_bit;
+// } packet_t;
+//
+// packet_t send_data;
+//
+logic [9:0] send_data;
 
 parameter int BAUD_WIDTH = CLOCK_SPEED / BAUD_RATE; // 434
 
