@@ -1,8 +1,8 @@
 module uart_tx_tb ();
 
-logic clk, rst, send;
+logic clk, rst, send, err;
 logic [7:0] data;
-wire tx, tx_done, err;
+wire tx, tx_done;
 
 enum {IDLE_BIT  = 0,
       START_BIT = 1,
