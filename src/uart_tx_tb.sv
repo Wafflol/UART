@@ -4,10 +4,10 @@ logic clk, rst, send, err;
 logic [7:0] data;
 wire tx, tx_done;
 
-parameter int IDLE  = 4'b0001;
-parameter int START = 4'b0010;
-parameter int TX    = 4'b0100;
-parameter int STOP  = 4'b1000;
+parameter [3:0] IDLE  = 4'b0001,
+                START = 4'b0010,
+                TX    = 4'b0100,
+                STOP  = 4'b1000;
 
 uart_tx #(.BAUD_RATE(25_000_000)) DUT(.*);
 
