@@ -43,7 +43,7 @@ end
 always_comb begin : state_machine_cl
     unique case (state)
         IDLE: {next_state, counter_next, shift_reg_next, tx, tx_done} =
-            {(send ? START : IDLE), '0, 4'd0, 1'b1, 1'bx};
+            {(send ? START : IDLE), '0, 4'd0, 1'b1, 1'b1};
         START: begin
             {tx, tx_done} = {send_data[shift_reg], 1'b0};
             if (counter < BAUD_WIDTH - 1) begin //does this need -1? check in tb
@@ -75,7 +75,7 @@ always_comb begin : state_machine_cl
             end
         end
         STOP: begin
-            {tx, tx_done} = {send_data[shift_reg], 1'b1};
+            {tx, tx_done} = {send_data[shift_reg], 1'b0};
             if (counter < BAUD_WIDTH - 1) begin
                 counter_next = counter + 1'b1;
                 next_state = STOP;
