@@ -9,26 +9,50 @@ z2
 cModel Technology
 dC:/intelFPGA/18.1
 vuart_tx
-DXx6 sv_std 3 std 0 22 AD7iAPLo6nTIKk<N0eo=D3
-!s110 1749301994
+Z0 DXx6 sv_std 3 std 0 22 AD7iAPLo6nTIKk<N0eo=D3
+Z1 !s110 1749306206
 !i10b 1
-!s100 ]_i;<V6]2z2fNkDMnAig62
-I_]d]_zJAHCL?LKJd`j`KE1
-VDg1SIo80bB@j0V0VzS_@n1
+!s100 ko4AZNNUTAC_gYC?C3>A83
+I0H[[3bVLR5<iU[b4U<8gF0
+Z2 VDg1SIo80bB@j0V0VzS_@n1
 !s105 uart_tx_sv_unit
 S1
-dC:/Users/tommy/Documents/UART/UART
-w1749301768
+Z3 dC:/Users/tommy/Documents/UART/UART
+Z4 w1749305957
 8C:/Users/tommy/Documents/UART/UART/src/uart_tx.sv
 FC:/Users/tommy/Documents/UART/UART/src/uart_tx.sv
 L0 1
-OV;L;10.5b;63
+Z5 OV;L;10.5b;63
 r1
 !s85 0
 31
-!s108 1749301994.000000
+Z6 !s108 1749306206.000000
 !s107 C:/Users/tommy/Documents/UART/UART/src/uart_tx.sv|
 !s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/Users/tommy/Documents/UART/UART/src/uart_tx.sv|
 !i113 1
-o-work work -sv
-tCvgOpt 0
+Z7 o-work work -sv
+Z8 tCvgOpt 0
+vuart_tx_tb
+R0
+R1
+!i10b 1
+!s100 maCC`IeOUli7:k90F9cCa1
+I7X4iVfEC^:;l1:c`D=0W10
+R2
+!s105 uart_tx_tb_sv_unit
+S1
+R3
+R4
+8C:/Users/tommy/Documents/UART/UART/src/uart_tx_tb.sv
+FC:/Users/tommy/Documents/UART/UART/src/uart_tx_tb.sv
+L0 1
+R5
+r1
+!s85 0
+31
+R6
+!s107 C:/Users/tommy/Documents/UART/UART/src/uart_tx_tb.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/Users/tommy/Documents/UART/UART/src/uart_tx_tb.sv|
+!i113 1
+R7
+R8

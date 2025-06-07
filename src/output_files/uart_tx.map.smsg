@@ -1,1 +1,1 @@
-Info (10281): Verilog HDL Declaration information at uart_tx.sv(4): object "tx" differs only in case from object "TX" in the same scope File: C:/Users/tommy/Documents/UART/UART/src/uart_tx.sv Line: 4
+Info (10281): Verilog HDL Declaration information at uart_tx.sv(6): object "tx" differs only in case from object "TX" in the same scope File: C:/Users/tommy/Documents/UART/UART/src/uart_tx.sv Line: 6

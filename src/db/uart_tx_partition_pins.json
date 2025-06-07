@@ -4,43 +4,7 @@
 			"name" : "Top",
 			"pins" : [
 				{
-					"name" : "tx",
-					"strict" : false
-				},
-				{
 					"name" : "tx_done",
-					"strict" : false
-				},
-				{
-					"name" : "data[3]",
-					"strict" : false
-				},
-				{
-					"name" : "data[4]",
-					"strict" : false
-				},
-				{
-					"name" : "data[5]",
-					"strict" : false
-				},
-				{
-					"name" : "data[6]",
-					"strict" : false
-				},
-				{
-					"name" : "data[1]",
-					"strict" : false
-				},
-				{
-					"name" : "data[2]",
-					"strict" : false
-				},
-				{
-					"name" : "data[0]",
-					"strict" : false
-				},
-				{
-					"name" : "data[7]",
 					"strict" : false
 				},
 				{
@@ -49,10 +13,6 @@
 				},
 				{
 					"name" : "clk",
-					"strict" : false
-				},
-				{
-					"name" : "send",
 					"strict" : false
 				}
 			]

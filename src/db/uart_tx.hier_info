@@ -1,4 +1,12 @@
 |uart_tx
+clk => data_register[0].CLK
+clk => data_register[1].CLK
+clk => data_register[2].CLK
+clk => data_register[3].CLK
+clk => data_register[4].CLK
+clk => data_register[5].CLK
+clk => data_register[6].CLK
+clk => data_register[7].CLK
 clk => shift_reg[0].CLK
 clk => shift_reg[1].CLK
 clk => shift_reg[2].CLK
@@ -20,17 +28,18 @@ rst => next_state_reset[3].OUTPUTSELECT
 rst => next_state_reset[2].OUTPUTSELECT
 rst => next_state_reset[1].OUTPUTSELECT
 rst => next_state_reset[0].OUTPUTSELECT
-send => Selector8.IN0
-send => Selector9.IN0
-data[0] => Mux0.IN19
-data[1] => Mux0.IN18
-data[2] => Mux0.IN17
-data[3] => Mux0.IN16
-data[4] => Mux0.IN15
-data[5] => Mux0.IN14
-data[6] => Mux0.IN13
-data[7] => Mux0.IN12
-tx <= Selector15.DB_MAX_OUTPUT_PORT_TYPE
-tx_done <= state[0].DB_MAX_OUTPUT_PORT_TYPE
+send => always0.IN1
+send => Mux9.IN7
+send => Mux10.IN4
+data[0] => data_register[0].DATAIN
+data[1] => data_register[1].DATAIN
+data[2] => data_register[2].DATAIN
+data[3] => data_register[3].DATAIN
+data[4] => data_register[4].DATAIN
+data[5] => data_register[5].DATAIN
+data[6] => data_register[6].DATAIN
+data[7] => data_register[7].DATAIN
+tx <= Mux16.DB_MAX_OUTPUT_PORT_TYPE
+tx_done <= Decoder0.DB_MAX_OUTPUT_PORT_TYPE
 
 
