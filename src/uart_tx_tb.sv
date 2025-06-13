@@ -59,21 +59,21 @@ module uart_tx_tb ();
         send = 1'b0;
         my_checker(START, 1'b0);
         #20; // NOW IN TX
-        my_checker(TX_0, 1'b0);
+        my_checker(TX_1, 1'b1);
         #20; // SEND LSB #2
-        my_checker(TX_1, 1'b1);
+        my_checker(TX_0, 1'b0);
         #20; // SEND LSB #3
-        my_checker(TX_0, 1'b0);
+        my_checker(TX_1, 1'b1);
         #20; // SEND LSB #4
-        my_checker(TX_1, 1'b1);
+        my_checker(TX_0, 1'b0);
         #20; // SEND LSB #5
-        my_checker(TX_0, 1'b0);
+        my_checker(TX_1, 1'b1);
         #20; // SEND LSB #6
-        my_checker(TX_1, 1'b1);
-        #20; // SEND LSB #7
         my_checker(TX_0, 1'b0);
-        #20; // SEND LSB #8
+        #20; // SEND LSB #7
         my_checker(TX_1, 1'b1);
+        #20; // SEND LSB #8
+        my_checker(TX_0, 1'b0);
         #20; // NOW IN STOP
         my_checker(STOP, 1'b1);
         #20; // NOW BACK IN IDLE
