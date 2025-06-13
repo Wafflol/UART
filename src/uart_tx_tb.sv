@@ -12,7 +12,7 @@ module uart_tx_tb ();
     uart_tx #(.BAUD_RATE(25_000_000)) DUT(.*); //each signal lasts 2 clock cycles
 
     task static my_checker;
-        input expected_state;
+        input logic [6:0] expected_state;
         input expected_tx;
     begin
         if (DUT.state !== expected_state) begin
