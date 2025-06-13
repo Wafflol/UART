@@ -38,6 +38,7 @@ module uart_tx_tb ();
         rst = 1'b1;
         #10;
         my_checker(IDLE, 1'b1);
+        rst = 1'b0;
         send = 1'b1;
         data = 8'b0101_0101;
         #10; // Now in START
