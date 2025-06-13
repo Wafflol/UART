@@ -32,6 +32,8 @@ module uart_tx
     always_ff @(posedge clk, posedge rst) begin : stateMachine
         if (rst) begin
             state <= IDLE;
+            clk_counter <= '0;
+            data_index <= '0;
         end
         else begin
             unique case (state)
