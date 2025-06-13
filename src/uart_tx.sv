@@ -52,7 +52,7 @@ module uart_tx
                     end
                     else begin
                         clk_counter <= '0;
-                        state <= data[data_index] ? TX_1  : TX_0;
+                        state <= data_register[data_index] ? TX_1  : TX_0;
                         data_index++;
                     end
                 end
