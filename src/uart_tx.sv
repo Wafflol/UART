@@ -6,77 +6,67 @@ module uart_tx
     output logic tx, tx_done
 );
 
-    parameter int BAUD_WIDTH = CLOCK_SPEED / BAUD_RATE; // 434
+    parameter BAUD_WIDTH = CLOCK_SPEED / BAUD_RATE; // 434
+
+    parameter IDLE  = 7'b00001_11,
+              START = 7'b00010_00,
+              TX_0  = 7'b00100_00,
+              TX_1  = 7'b01000_10,
+              STOP  = 7'b10000_10;
 
     logic [7:0] data_register;
-    logic [8:0] counter, counter_next;
-    logic [3:0] state, next_state;
-    logic [2:0] shift_reg, shift_reg_next;
-    wire  [3:0] next_state_reset;
+    logic [8:0] clk_counter;
+    logic [2:0] data_index;
+    logic [6:0] state;
 
-    parameter [3:0] IDLE  = 4'b0001,
-                    START = 4'b0010,
-                    TX    = 4'b0100,
-                    STOP  = 4'b1000;
+    assign tx_done = state[0];
+    assign tx      = state[1];
 
-    assign next_state_reset = rst ? IDLE : next_state;
-
-    always_ff @(posedge clk) begin : registers
-        state <= next_state_reset;
-        counter <= counter_next;
-        shift_reg <= shift_reg_next;
-        if (send & (state === 4'b0001))
-            data_register <= data;
+    always_ff @(posedge clk, posedge rst) begin : regSRFlipFlop
+        if (rst)
+            data_register <= '0;
+        else if (send & (state === IDLE))
+            data_register <= data; //TODO: add tb testcase for flip flop
     end
 
-    always_comb begin : state_machine_cl
-        unique case (state)
-            IDLE: {next_state, counter_next, shift_reg_next, tx, tx_done} =
-                {(send ? START : IDLE), '0, 4'd0, 1'b1, 1'b1};
-
-            START: begin
-                {tx, tx_done} = {1'b0, 1'b0};
-                shift_reg_next = shift_reg;
-                if (counter < BAUD_WIDTH - 1) begin //does this need -1? check in tb
-                    counter_next = counter + 1'b1;
-                    next_state = START;
+    always_ff @(posedge clk, posedge rst) begin : stateMachine
+        if (rst) begin
+            state <= IDLE;
+        end
+        else begin
+            unique case (state)
+                IDLE: state <= send ? START : IDLE;
+                START: begin
+                    if (clk_counter < BAUD_WIDTH - 1) begin
+                        clk_counter <= clk_counter + 1'b1;
+                    end
+                    else begin
+                        clk_counter <= '0;
+                        state <= data[0] ? TX_1 : TX_0;
+                        data_index++;
+                    end
                 end
-                else begin
-                    counter_next = 1'b0;
-                    next_state = TX;
+                TX_0, TX_1: begin
+                    if (clk_counter < BAUD_WIDTH - 1) begin
+                        clk_counter <= clk_counter + 1'b1;
+                    end
+                    else begin
+                        clk_counter <= '0;
+                        state <= data[data_index] ? TX_1  : TX_0;
+                        data_index++;
+                    end
                 end
-            end
-
-            TX: begin
-                {tx, tx_done} = {data[shift_reg], 1'b0};
-                if (counter < BAUD_WIDTH - 1) begin
-                    counter_next = counter + 1'b1;
-                    next_state = TX;
-                    shift_reg_next = shift_reg;
+                STOP: begin
+                    if (clk_counter < BAUD_WIDTH - 1)
+                        clk_counter <= clk_counter + 1'b1;
+                    else begin
+                        clk_counter <= '0;
+                        state <= IDLE;
+                        data_index <= '0;
+                    end
                 end
-                else begin
-                    counter_next = 1'b0;
-                    shift_reg_next = shift_reg + 1'b1;
-                    if (shift_reg == 3'd7)
-                        next_state = STOP;
-                    else
-                        next_state = TX;
-                end
-            end
-            STOP: begin
-                {tx, tx_done} = {1'b1, 1'b0};
-                if (counter < BAUD_WIDTH - 1) begin
-                    counter_next = counter + 1'b1;
-                    next_state = STOP;
-                    shift_reg_next = shift_reg;
-                end
-                else begin
-                    counter_next = 1'b0;
-                    next_state = IDLE;
-                    shift_reg_next = '0;
-                end
-            end
-            default: {next_state, counter_next, shift_reg_next, tx, tx_done} = 'x;
-        endcase
+            endcase
+        end
     end
+
 endmodule
