@@ -1,7 +1,7 @@
 module uart_tx
     #(parameter int BAUD_RATE = 115_200,
         parameter int CLOCK_SPEED = 50_000_000)(
-    input clk, rst, send,
+    input logic clk, rst, send,
     input [7:0] data,
     output logic tx, tx_done
 );
