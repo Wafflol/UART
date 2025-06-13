@@ -52,10 +52,14 @@ module uart_tx
                     if (clk_counter < BAUD_WIDTH - 1) begin
                         clk_counter <= clk_counter + 1'b1;
                     end
-                    else begin
+                    else if (data_index !== 3'd0) begin
                         clk_counter <= '0;
                         state <= data_register[data_index] ? TX_1  : TX_0;
                         data_index <= data_index + 1;
+                    end
+                    else begin
+                        clk_counter <= '0;
+                        state <= STOP;
                     end
                 end
                 STOP: begin
